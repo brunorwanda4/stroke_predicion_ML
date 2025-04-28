@@ -4,93 +4,183 @@
     <meta charset="UTF-8">
     <title>Stroke Prediction</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet" type="text/css" />
+    <style>
+        /* Optional: Slightly more padding within table cells */
+        .table td, .table th {
+            padding: 0.75rem; /* Adjust as needed */
+        }
+    </style>
 </head>
-<body class="bg-gray-100 p-6 font-sans">
-    <div class="container mx-auto bg-white rounded-lg shadow-md p-8">
-        <h1 class="text-2xl font-bold mb-6 text-center text-gray-800">Stroke Risk Predictor</h1>
+<body data-theme="cupcake" class="bg-base-200 p-6 font-sans">
+    <div class="max-w-4xl mx-auto bg-base-100 rounded-xl shadow-lg p-8"> <h1 class="text-3xl font-bold mb-8 text-center text-primary">Stroke Risk Predictor</h1>
 
-        <form method="post" class="space-y-4">
-            <div>
-                <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">Gender:</label>
-                <select name="gender" id="gender" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                </select>
+        <form method="post" class="space-y-8 mb-10"> <div class="card bg-base-100 shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4">Basic Information</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Gender</span>
+                        </label>
+                        <select name="gender" class="select select-bordered" required>
+                            <option disabled selected>Select gender</option>
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Age</span>
+                        </label>
+                        <input type="number" name="age" step="0.1" min="0" class="input input-bordered" required />
+                    </div>
+
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Ever Married?</span>
+                        </label>
+                        <select name="ever_married" class="select select-bordered" required>
+                             <option disabled selected>Select status</option> <option>Yes</option>
+                            <option>No</option>
+                        </select>
+                    </div>
+
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Residence Type</span>
+                        </label>
+                        <select name="Residence_type" class="select select-bordered" required>
+                            <option disabled selected>Select type</option> <option>Urban</option>
+                            <option>Rural</option>
+                        </select>
+                    </div>
+                </div>
             </div>
 
-            <div>
-                <label for="age" class="block text-sm font-medium text-gray-700 mb-1">Age:</label>
-                <input type="number" name="age" id="age" step="0.1" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+            <div class="card bg-base-100 shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4">Medical Information</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="form-control">
+                        <label class="label cursor-pointer justify-start gap-4"> <span class="label-text">Hypertension</span>
+                            <input type="checkbox" name="hypertension" class="toggle toggle-primary" />
+                        </label>
+                    </div>
+
+                    <div class="form-control">
+                        <label class="label cursor-pointer justify-start gap-4"> <span class="label-text">Heart Disease</span>
+                            <input type="checkbox" name="heart_disease" class="toggle toggle-primary" />
+                        </label>
+                    </div>
+
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Average Glucose Level</span>
+                        </label>
+                        <input type="number" name="avg_glucose_level" step="0.01" min="0" class="input input-bordered" required />
+                    </div>
+
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">BMI</span>
+                        </label>
+                        <input type="number" name="bmi" step="0.01" min="0" class="input input-bordered" required />
+                    </div>
+                </div>
             </div>
 
-            <div>
-                <label for="hypertension" class="block text-sm font-medium text-gray-700 mb-1">Hypertension (0 = No, 1 = Yes):</label>
-                <input type="number" name="hypertension" id="hypertension" min="0" max="1" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+            <div class="card bg-base-100 shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4">Lifestyle Information</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Work Type</span>
+                        </label>
+                        <select name="work_type" class="select select-bordered" required>
+                             <option disabled selected>Select type</option> <option>Private</option>
+                            <option>Self-employed</option>
+                            <option>Govt_job</option>
+                            <option>children</option>
+                            <option>Never_worked</option>
+                        </select>
+                    </div>
+
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Smoking Status</span>
+                        </label>
+                        <select name="smoking_status" class="select select-bordered" required>
+                            <option disabled selected>Select status</option> <option>never smoked</option>
+                            <option>formerly smoked</option>
+                            <option>smokes</option>
+                            <option>Unknown</option>
+                        </select>
+                    </div>
+                </div>
             </div>
 
-            <div>
-                <label for="heart_disease" class="block text-sm font-medium text-gray-700 mb-1">Heart Disease (0 = No, 1 = Yes):</label>
-                <input type="number" name="heart_disease" id="heart_disease" min="0" max="1" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+            <div class="form-control mt-6">
+                <button type="submit" class="btn btn-primary w-full">Predict Stroke Risk</button>
             </div>
 
-            <div>
-                <label for="ever_married" class="block text-sm font-medium text-gray-700 mb-1">Ever Married:</label>
-                <select name="ever_married" id="ever_married" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
-                </select>
-            </div>
-
-            <div>
-                <label for="work_type" class="block text-sm font-medium text-gray-700 mb-1">Work Type:</label>
-                <select name="work_type" id="work_type" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                    <option value="Private">Private</option>
-                    <option value="Self-employed">Self-employed</option>
-                    <option value="Govt_job">Govt_job</option>
-                    <option value="children">children</option>
-                    <option value="Never_worked">Never_worked</option>
-                </select>
-            </div>
-
-            <div>
-                <label for="Residence_type" class="block text-sm font-medium text-gray-700 mb-1">Residence Type:</label>
-                <select name="Residence_type" id="Residence_type" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                    <option value="Urban">Urban</option>
-                    <option value="Rural">Rural</option>
-                </select>
-            </div>
-
-            <div>
-                <label for="avg_glucose_level" class="block text-sm font-medium text-gray-700 mb-1">Average Glucose Level:</label>
-                <input type="number" name="avg_glucose_level" id="avg_glucose_level" step="0.01" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-            </div>
-
-            <div>
-                <label for="bmi" class="block text-sm font-medium text-gray-700 mb-1">BMI:</label>
-                <input type="number" name="bmi" id="bmi" step="0.01" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-            </div>
-
-            <div>
-                <label for="smoking_status" class="block text-sm font-medium text-gray-700 mb-1">Smoking Status:</label>
-                <select name="smoking_status" id="smoking_status" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                    <option value="never smoked">never smoked</option>
-                    <option value="formerly smoked">formerly smoked</option>
-                    <option value="smokes">smokes</option>
-                    <option value="Unknown">Unknown</option>
-                </select>
-            </div>
-
-            <button type="submit" class="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                Predict
-            </button>
         </form>
 
         {% if result %}
-            <div class="mt-6 p-4 bg-green-100 text-green-800 rounded-md">
-                <h2 class="text-lg font-semibold">Result: {{ result }}</h2>
+            <div class="alert {% if 'Error' in result %}alert-error{% else %}alert-success{% endif %} mt-8 mb-10 shadow-lg"> <div> {% if 'Error' in result %}
+                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    {% else %}
+                     <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    {% endif %}
+                    <span class="text-lg font-medium">Result: {{ result }}</span>
+                </div>
             </div>
         {% endif %}
-    </div>
-</body>
+
+        <div class="mt-12">
+            <h2 class="text-2xl font-semibold mb-6 text-center">Prediction History (Latest 10)</h2>
+            {# Check if history list exists and has items #}
+            {% if history and history|length > 0 %}
+                <div class="overflow-x-auto shadow-md rounded-lg border border-base-300">
+                    <table class="table table-zebra w-full table-sm"> <thead class="bg-base-200 text-sm uppercase"> <tr>
+                                <th class="px-4 py-2">Timestamp (UTC)</th>
+                                <th class="px-4 py-2">Age</th>
+                                <th class="px-4 py-2">Gender</th>
+                                <th class="px-4 py-2">Hypertension</th>
+                                <th class="px-4 py-2">Heart Disease</th>
+                                <th class="px-4 py-2">Avg Glucose</th>
+                                <th class="px-4 py-2">BMI</th>
+                                <th class="px-4 py-2">Smoking Status</th>
+                                <th class="px-4 py-2">Prediction</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {# Loop through each record in the history list #}
+                            {% for record in history %}
+                            <tr class="hover"> <td class="px-4 py-2 whitespace-nowrap">
+                                    {# Safely access and format timestamp #}
+                                    {{ record.timestamp.strftime('%Y-%m-%d %H:%M:%S') if record.timestamp else 'N/A' }}
+                                </td>
+                                <td class="px-4 py-2">{{ record.age | default('N/A') }}</td>
+                                <td class="px-4 py-2">{{ record.gender | default('N/A') }}</td>
+                                <td class="px-4 py-2">{{ 'Yes' if record.hypertension == 1 else 'No' }}</td> {# Format boolean */}
+                                <td class="px-4 py-2">{{ 'Yes' if record.heart_disease == 1 else 'No' }}</td> {# Format boolean #}
+                                <td class="px-4 py-2">{{ record.avg_glucose_level | default('N/A') }}</td>
+                                <td class="px-4 py-2">{{ record.bmi | default('N/A') }}</td>
+                                <td class="px-4 py-2">{{ record.smoking_status | default('N/A') }}</td>
+                                <td class="px-4 py-2 font-semibold {% if record.prediction_result_code == 1 %}text-red-600{% else %}text-green-600{% endif %}">
+                                    {# Safely access prediction text #}
+                                    {{ record.prediction_result_text | default('N/A') }}
+                                </td>
+                            </tr>
+                            {% endfor %} {# End of loop #}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                {# Message shown if history is empty or fetch failed #}
+                <p class="text-center text-gray-500 mt-6">No prediction history found or unable to connect to the database.</p>
+            {% endif %} {# End of history check #}
+        </div>
+        </div> </body>
 </html>
